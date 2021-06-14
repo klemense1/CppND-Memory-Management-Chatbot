@@ -16,7 +16,6 @@ private:
     // data handles (not owned)
     GraphNode *_currentNode;
     GraphNode *_rootNode;
-    // std::unique_ptr<ChatLogic> _chatLogic;
     ChatLogic *_chatLogic;
 
     // proprietary functions

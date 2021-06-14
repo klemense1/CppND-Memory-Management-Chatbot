@@ -11,8 +11,6 @@ GraphNode::~GraphNode()
     //// STUDENT CODE
     ////
 
-    // delete _chatBot; // GraphNode does not own ChatBot, therefore it must not delete it.
-
     ////
     //// EOF STUDENT CODE
 }
@@ -43,7 +41,6 @@ void GraphNode::MoveChatbotHere(std::unique_ptr<ChatBot> chatbot)
 void GraphNode::MoveChatbotToNewNode(GraphNode *newNode)
 {
     newNode->MoveChatbotHere(std::move(_chatBot));
-    // _chatBot = nullptr; // invalidate pointer at source
 }
 ////
 //// EOF STUDENT CODE
