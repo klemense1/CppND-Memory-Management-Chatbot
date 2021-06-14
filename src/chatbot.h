@@ -16,6 +16,7 @@ private:
     // data handles (not owned)
     GraphNode *_currentNode;
     GraphNode *_rootNode;
+    // std::unique_ptr<ChatLogic> _chatLogic;
     ChatLogic *_chatLogic;
 
     // proprietary functions
@@ -29,6 +30,9 @@ public:
 
     //// STUDENT CODE
     ////
+    ChatBot(const ChatBot& source); // Copy constructor
+    ChatBot(ChatBot&& source); // Move constructor
+    ChatBot& operator=(ChatBot&& source); // Move assignment operator
 
     ////
     //// EOF STUDENT CODE
