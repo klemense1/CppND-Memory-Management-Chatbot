@@ -11,6 +11,7 @@
 // constructor WITHOUT memory allocation
 ChatBot::ChatBot()
 {
+    std::cout << "ChatBot Constructor (without memory allocation)  of instance " << this << std::endl;
     // invalidate data handles
     _image = nullptr;
     _chatLogic = nullptr;
@@ -20,7 +21,7 @@ ChatBot::ChatBot()
 // constructor WITH memory allocation
 ChatBot::ChatBot(std::string filename)
 {
-    std::cout << "ChatBot Constructor" << std::endl;
+    std::cout << "ChatBot Constructor (with memory allocation) of instance " << this << std::endl;
 
     // invalidate data handles
     _chatLogic = nullptr;
@@ -32,7 +33,7 @@ ChatBot::ChatBot(std::string filename)
 
 ChatBot::~ChatBot()
 {
-    std::cout << "ChatBot Destructor" << std::endl;
+    std::cout << "ChatBot Destructor of instance " << this << std::endl;
 
     // deallocate heap memory
     if (_image != NULL) // Attention: wxWidgets used NULL and not nullptr
@@ -53,10 +54,22 @@ ChatBot::ChatBot(const ChatBot &source)
     _image = new wxBitmap(*source._image);
 }
 
+ChatBot &ChatBot::operator=(ChatBot& source)
+{
+    // copy assignment operator
+    std::cout << "COPYING (assign) content of ChatBot instance " << &source << " to instance " << this << std::endl;
+    _chatLogic = source._chatLogic;
+    _chatLogic->SetChatbotHandle(this);
+    _rootNode = source._rootNode;
+    _image = new wxBitmap(*source._image);
+    return *this;
+}
+
 ChatBot::ChatBot(ChatBot &&source)
 { // move constructor
     std::cout << "MOVING ChatBot instance " << &source << " to instance " << this << std::endl;
     _chatLogic = source._chatLogic;
+    _chatLogic->SetChatbotHandle(this);
     _rootNode = source._rootNode;
     _image = source._image;
 
@@ -77,12 +90,15 @@ ChatBot &ChatBot::operator=(ChatBot &&source) // move assignment operator
         _image = NULL;
     }
     _chatLogic = source._chatLogic;
+    _chatLogic->SetChatbotHandle(this);
     _rootNode = source._rootNode;
     _image = source._image;
 
     source._chatLogic = nullptr;
     source._rootNode = nullptr;
     source._image = NULL;
+
+    return *this;
 }
 
 ////
